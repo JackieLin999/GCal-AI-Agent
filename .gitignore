@@ -1,1 +1,4 @@
 env
+schedule-agent/credentials.json
+token.pickle
+__pycache__
