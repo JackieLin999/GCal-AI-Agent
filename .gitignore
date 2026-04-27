@@ -2,3 +2,4 @@ env
 schedule-agent/credentials.json
 token.pickle
 __pycache__
+chroma_db
