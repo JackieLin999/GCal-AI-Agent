@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Schedule Agent",
+  "version": "1.0",
+  "description": "AI-powered schedule builder for Google Calendar",
+  "permissions": [
+    "activeTab"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Schedule Agent"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}

@@ -7,7 +7,7 @@ def get_calendar_service():
         creds = pickle.load(f)
     return build('calendar', 'v3', credentials=creds)
 
-def wipe_calendar(days_back=30):
+def wipe_calendar(days_back=35):
     service = get_calendar_service()
     now = datetime.now(timezone.utc)
     past = (now - timedelta(days=days_back)).isoformat()

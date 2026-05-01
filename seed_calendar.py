@@ -55,7 +55,12 @@ one_off_events = [
 
 def seed_calendar():
     service = get_calendar_service()
-    now = datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
+
+    import zoneinfo
+    TZ = zoneinfo.ZoneInfo("America/Detroit")
+    now = datetime.now(TZ).replace(hour=0, minute=0, second=0, microsecond=0)
+
+
     created = 0
 
     print("Creating weekly recurring events for past 30 days...")

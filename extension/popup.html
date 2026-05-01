@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      width: 380px;
+      min-height: 200px;
+      background: #0f0f0f;
+      color: #e0e0e0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 13px;
+    }
+
+    .header {
+      padding: 14px 16px;
+      border-bottom: 1px solid #222;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    .body { padding: 14px 16px; }
+
+    textarea {
+      width: 100%;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 6px;
+      color: #e0e0e0;
+      font-size: 13px;
+      padding: 10px;
+      resize: vertical;
+      min-height: 70px;
+      outline: none;
+      font-family: inherit;
+    }
+
+    textarea:focus { border-color: #555; }
+
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    label { font-size: 12px; color: #888; white-space: nowrap; }
+
+    input[type=range] { flex: 1; accent-color: #4a90d9; }
+
+    .day-label {
+      font-size: 12px;
+      color: #4a90d9;
+      white-space: nowrap;
+      min-width: 70px;
+      text-align: right;
+    }
+
+    .btn {
+      width: 100%;
+      margin-top: 12px;
+      padding: 9px;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+
+    .btn:hover { opacity: 0.85; }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .btn-primary { background: #4a90d9; color: white; }
+    .btn-confirm { background: #2a7a4a; color: white; display: none; }
+
+    .status {
+      margin-top: 10px;
+      font-size: 12px;
+      color: #888;
+      min-height: 16px;
+    }
+
+    .status.error { color: #e05555; }
+    .status.success { color: #4caf7d; }
+
+    .calendar {
+      margin-top: 14px;
+      border-top: 1px solid #222;
+      padding-top: 14px;
+      display: none;
+    }
+
+    .calendar-title {
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 10px;
+    }
+
+    .day-view {
+      position: relative;
+      margin-left: 44px;
+    }
+
+    .hour-row {
+      position: relative;
+      height: 48px;
+      border-top: 1px solid #1e1e1e;
+    }
+
+    .hour-label {
+      position: absolute;
+      left: -44px;
+      top: -7px;
+      font-size: 10px;
+      color: #555;
+      width: 38px;
+      text-align: right;
+    }
+
+    .event-block {
+      position: absolute;
+      left: 4px;
+      right: 0;
+      border-radius: 4px;
+      padding: 3px 6px;
+      font-size: 11px;
+      overflow: hidden;
+      border-left: 3px solid;
+    }
+
+    .event-block.existing {
+      background: #1a2a3a;
+      border-color: #4a90d9;
+      color: #aac8f0;
+    }
+
+    .event-block.proposed {
+      background: #1a2e22;
+      border-color: #4caf7d;
+      color: #a0d4b0;
+    }
+
+    .event-title { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .event-time  { font-size: 10px; opacity: 0.7; }
+
+    .legend {
+      display: flex;
+      gap: 14px;
+      font-size: 11px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+
+    .legend span { display: flex; align-items: center; gap: 4px; }
+    .dot { width: 8px; height: 8px; border-radius: 2px; }
+    .dot-existing { background: #4a90d9; }
+    .dot-proposed { background: #4caf7d; }
+  </style>
+</head>
+<body>
+  <div class="header">Schedule Agent</div>
+  <div class="body">
+    <textarea id="goal" placeholder="Describe your goal for the day..."></textarea>
+
+    <div class="row">
+      <label>Day:</label>
+      <input type="range" id="offset" min="1" max="7" value="1">
+      <div class="day-label" id="dayLabel">Tomorrow</div>
+    </div>
+
+    <button class="btn btn-primary" id="generateBtn">Generate Schedule</button>
+    <button class="btn btn-confirm" id="confirmBtn">Confirm — Save to Google Calendar</button>
+
+    <div class="status" id="status"></div>
+
+    <div class="calendar" id="calendar">
+      <div class="calendar-title" id="calendarTitle"></div>
+      <div class="legend">
+        <span><div class="dot dot-existing"></div> Existing</span>
+        <span><div class="dot dot-proposed"></div> Proposed</span>
+      </div>
+      <div class="day-view" id="dayView"></div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
